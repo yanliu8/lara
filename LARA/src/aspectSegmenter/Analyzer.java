@@ -775,15 +775,27 @@ public class Analyzer {
 	}
 	
 	static public void main(String[] args){
-		Analyzer analyzer = new Analyzer("Data/Seeds/rest_bootstrapping_test.dat", "Data/Seeds/stopwords.dat", 
-				"Data/Model/NLP/en-sent.zip", "Data/Model/NLP/en-token.zip", "Data/Model/NLP/en-pos-maxent.bin");
-		analyzer.LoadData("Data/bigjoined.json");
+		
+		for (int i = 1; i < 53; i++ )
+		{
+			Analyzer analyzer = new Analyzer("Data/Seeds/rest_bootstrapping_test.dat", "Data/Seeds/stopwords.dat", 
+					"Data/Model/NLP/en-sent.zip", "Data/Model/NLP/en-token.zip", "Data/Model/NLP/en-pos-maxent.bin");
+			String filename = "Data/restreview/resturant".concat(Integer.toString(i).concat(".json"));
+			analyzer.LoadData(filename);
+			filename = "Data/Seeds/rest_boostrapping_test.dat";
+			analyzer.BootStrapping("Data/Seeds/rest_bootstrapping_test.dat");
+			filename = "Data/Vectors/rest_vectro_CHI_4000_".concat(Integer.toString(i).concat(".dat"));
+			analyzer.Save2Vectors(filename);
+			analyzer.m_hotelList.clear();
+			System.out.println("file".concat(Integer.toString(i)).concat("completed"));
+		}
+		//analyzer.LoadData("Data/restreview/resturant0.json");
 		//analyzer.LoadVocabulary("Data/Seeds/hotel_vocabulary_CHI.dat");
 		//analyzer.LoadDirectory("Data/Reviews/", ".dat");
 		//analyzer.LoadReviews("e:/Data/Reviews/Tmp/hotel_111849.dat");
-		analyzer.BootStrapping("Data/Seeds/rest_bootstrapping_testnew.dat");
+		//analyzer.BootStrapping("Data/Seeds/rest_bootstrapping_test_all.dat");
 		//analyzer.OutputWordListWithInfo("Data/Seeds/hotel_vocabulary_May10.dat");
-		analyzer.Save2Vectors("Data/Vectors/rest_vector_CHI_4000.dat");	
-		analyzer.SaveVocabulary("Data/Seeds/rest_vocabulary.dat");
+		//analyzer.Save2Vectors("Data/Vectors/rest_vector_CHI_4000_0.dat");	
+		//analyzer.SaveVocabulary("Data/Seeds/rest_vocabulary.dat");
 	}
 }
