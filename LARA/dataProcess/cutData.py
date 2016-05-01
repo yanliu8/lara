@@ -30,7 +30,7 @@ with open("joined.json") as jsonfile:
 	    		count += 1
 	    		if count % 1000 == 0:
 	    			print("done writing" + str(count) + " resturants")
-
+output.close()
 
 
 
