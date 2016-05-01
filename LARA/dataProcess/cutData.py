@@ -5,7 +5,7 @@ for i in range(53):
 	with open('../Data/aspectRating/output_rest_prediction' + str(i) + '.dat') as aspectRating:
 		csvreader = csv.reader(aspectRating, delimiter = "	")
 		for row in csvreader:
-			dic[row[0]] = row[1:]
+			dic[row[0]] = [float(i) for i in row[1:]]
 print("done loading rating")
 output = open("../Data/finaloutput.json", "w")
 count = 0
@@ -15,6 +15,7 @@ with open("joined.json") as jsonfile:
 		if (config['business_id'] in dic) :	
 	    		del config["categories"]
 	    		del config["stars"]
+	    		del config["review_count"]
 	    		for review in config['reviews']:
 	    			del review["business_id"]
 	    			del review["user_id"]
@@ -25,6 +26,7 @@ with open("joined.json") as jsonfile:
 	    		config["service"] = dic[config["business_id"]][1]
 	    		config["environment"] = dic[config["business_id"]][2]
 	    		config["value"] = dic[config["business_id"]][3]
+	    		config["overall"] = round(sum(dic[config["business_id"]])/4)
 	    		json.dump(config, output)
 	    		output.write('\n')
 	    		count += 1
